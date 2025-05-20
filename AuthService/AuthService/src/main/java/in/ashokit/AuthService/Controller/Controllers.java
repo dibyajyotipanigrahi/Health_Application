@@ -71,6 +71,23 @@ public class Controllers {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    public ResponseEntity<ApiResponse<UserResponseDto>> getById(@PathVariable Integer id){
+        UserResponseDto user = userService.getById(id);
+        if(user !=null){
+            apiResponse.setData(user);
+
+        }
+
+
+
+        return new ResponseEntity<>(apiResponse,HttpStatus.OK);
+    }
+
+
+
+
+
+
     @PatchMapping("/updateUser/{id}")
     public ResponseEntity<ApiResponse<UserResponseDto>> updateUser(@PathVariable Integer id, @RequestBody UserDto userDto) {
         UserResponseDto user = userService.updateUser(id, userDto);

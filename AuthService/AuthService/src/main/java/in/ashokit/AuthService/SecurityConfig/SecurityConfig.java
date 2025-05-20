@@ -62,9 +62,13 @@ public class SecurityConfig {
                                 "/oauth2/**",// Allow Spring's OAuth2 login redirections
                                 "/getAllUser",
                                 "/updateUser/**",
-                                "/delete/**"
-
-
+                                "/delete/**",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/v2/api-docs",
+                                "/swagger-resources/**",
+                                "/webjars/**"
                         ).permitAll()
                         .anyRequest().authenticated()  // Everything else secured
                 )
@@ -72,6 +76,10 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+
+
+
 
 
 }

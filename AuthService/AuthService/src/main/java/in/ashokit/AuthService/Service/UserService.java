@@ -11,6 +11,7 @@ public interface UserService {
 
     public String loginUser(UserDto userDto);
 
+    public UserResponseDto getById(Integer id);
     public List<UserResponseDto> getAllUser();
 
     public UserResponseDto updateUser(Integer id, UserDto UserDto);

@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.util.List;
+
 @Entity
 public class User {
 
@@ -26,10 +27,9 @@ public class User {
     @UpdateTimestamp
     @Column(insertable = false)
     private LocalDate updatedDate;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 
-    @JoinTable(
-            name = "User_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "User_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Roles> roles;
 
     public String getEmail() {

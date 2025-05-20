@@ -21,6 +21,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Arrays.stream;
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.st;
+
 @Service
 public class UserServiceImplementation implements UserService {
 
@@ -84,6 +87,19 @@ public class UserServiceImplementation implements UserService {
         } catch (BadCredentialsException e) {
             throw new AuthServiceException("Invalid Credential", "401");
         }
+    }
+
+    @Override
+    public UserResponseDto getById(Integer id) {
+        Optional<User> byId = userRepo.findById(id);
+        if (byId.isPresent()) {
+            User user = byId.get();
+            return mapper.userConvertToDTOResponse(user);
+
+        } else {
+            throw new AuthServiceException("Data not found", "500");
+        }
+
     }
 
     @Override

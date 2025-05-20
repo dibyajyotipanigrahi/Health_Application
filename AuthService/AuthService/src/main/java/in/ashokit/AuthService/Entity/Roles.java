@@ -10,10 +10,10 @@ public class Roles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    public String name;
+    private String name;
 
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "roles")
     private List<User> user;
 
 
