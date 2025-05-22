@@ -1,15 +1,17 @@
 package in.ashokit.AuthService.ServiceImplementation;
 
+
 import in.ashokit.AuthService.Entity.User;
 import in.ashokit.AuthService.ExceptionHandler.AuthServiceException;
+import in.ashokit.AuthService.FeignClient.EmailClient;
 import in.ashokit.AuthService.JwtTokenGenerate.JwtTokenUtils;
 import in.ashokit.AuthService.Repository.UserRepository;
 import in.ashokit.AuthService.Service.UserService;
 import in.ashokit.AuthService.Utils.EmailUtils;
+import in.ashokit.AuthService.dto.EmailRequest;
 import in.ashokit.AuthService.dto.UserDto;
 import in.ashokit.AuthService.dto.UserResponseDto;
 import in.ashokit.AuthService.mapper.DtoMapper;
-import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,9 +22,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
-import static java.util.Arrays.stream;
-import static org.bouncycastle.asn1.x500.style.RFC4519Style.st;
 
 @Service
 public class UserServiceImplementation implements UserService {
@@ -42,12 +41,14 @@ public class UserServiceImplementation implements UserService {
 
     @Autowired
     private EmailUtils emailUtils;
+    @Autowired
+    private EmailClient emailClient;
 
     @Autowired
     private JwtTokenUtils jwtToken;
 
     @Override
-    public UserResponseDto saveUser(UserDto userDto) throws MessagingException {
+    public UserResponseDto saveUser(UserDto userDto) {
         try {
 
 
@@ -61,11 +62,14 @@ public class UserServiceImplementation implements UserService {
             User user = userRepo.save(mapper.userdtoToUser(userDto));
 
             String otp = emailUtils.generateVerificationCode();
-            emailUtils.sendVerificationEmail(user.getEmail(), user.getName(), otp);
-            return mapper.userConvertToDTOResponse(user);
-        } catch (MessagingException e) {
-            throw new AuthServiceException("Email Sending failed", "500");
 
+            EmailRequest emailRequest = new EmailRequest();
+            emailRequest.setTo(user.getEmail());
+            emailRequest.setSubject("Register Succcessfully");
+            emailRequest.setBody("Hi Dibyajyoti Hear");
+
+            emailClient.sendEmail(emailRequest);
+            return mapper.userConvertToDTOResponse(user);
         } catch (Exception e) {
             throw new AuthServiceException("Registration Failed", "500");
         }

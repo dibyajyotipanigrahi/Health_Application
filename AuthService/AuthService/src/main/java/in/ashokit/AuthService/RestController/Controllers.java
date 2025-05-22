@@ -1,10 +1,9 @@
-package in.ashokit.AuthService.Controller;
+package in.ashokit.AuthService.RestController;
 
 import in.ashokit.AuthService.ApiResponse.ApiResponse;
 import in.ashokit.AuthService.Service.UserService;
 import in.ashokit.AuthService.dto.UserDto;
 import in.ashokit.AuthService.dto.UserResponseDto;
-import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,7 @@ public class Controllers {
     private ApiResponse apiResponse;
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<UserResponseDto>> registerUser(@RequestBody UserDto userDto) throws MessagingException {
+    public ResponseEntity<ApiResponse<UserResponseDto>> registerUser(@RequestBody UserDto userDto)  {
         UserResponseDto user = userService.saveUser(userDto);
 
         if (user != null) {
@@ -114,12 +113,12 @@ public class Controllers {
             userService.deleteUser(id);
             apiResponse.setMessage("User deleted successfully");
             apiResponse.setStatus(200);
-            apiResponse.setData(null);  // no data to return on delete
+
             return new ResponseEntity<>(apiResponse, HttpStatus.OK);
         } catch (Exception e) {
             apiResponse.setMessage("User deletion failed: " + e.getMessage());
             apiResponse.setStatus(500);
-            apiResponse.setData(null);
+
             return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

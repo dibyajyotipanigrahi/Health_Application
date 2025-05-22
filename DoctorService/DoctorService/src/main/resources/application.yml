@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: DoctorService
+  config:
+    import: optional:configserver:http://localhost:2222/

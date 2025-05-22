@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: Patient
+  config:
+    import: optional:configserver:http://localhost:2222/

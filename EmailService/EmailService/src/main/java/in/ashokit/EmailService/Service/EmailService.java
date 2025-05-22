@@ -1,6 +1,6 @@
 package in.ashokit.EmailService.Service;
 
-import jakarta.mail.MessagingException;
+
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -15,7 +15,7 @@ public class EmailService {
     private JavaMailSender mailSender;
 
     @Async
-    public void sendVerificationEmail(String to, String name, String body) throws MessagingException {
+    public void sendVerificationEmail(String to, String name, String body) throws Exception{
         MimeMessage message = mailSender.createMimeMessage();
 
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
