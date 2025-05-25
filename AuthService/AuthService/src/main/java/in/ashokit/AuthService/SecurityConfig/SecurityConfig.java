@@ -55,14 +55,14 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/eureka/**",        // Public
                                 "/actuator/**",      // Public
-                                "/login",            // Allow custom login endpoint
-                                "/register",         // Allow registration
+                                "auth/login",            // Allow custom login endpoint
+                                "auth/register",         // Allow registration
                                 "/oauth2/**",// Allow Spring's OAuth2 login redirections
-                                "/auth/getAllUser",
-                                "/updateUser/**",
-                                "/delete/**",
-                                "/swagger-ui.html",
-                                "/swagger-ui/**",
+                              "/auth/**",
+                                "auth/updateUser/**",
+                                "auth/delete/**",
+                                "auth/swagger-ui.html",
+                                "auth/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/v2/api-docs",
                                 "/swagger-resources/**",
@@ -71,14 +71,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()  // Everything else secured
                 );
                 //.oauth2Login(withDefaults());  // Enable OAuth2 login
-
         return http.build();
     }
-
-
-
-
-
-
 }
 

@@ -109,7 +109,9 @@ public class UserServiceImplementation implements UserService {
 
             Authentication authenticate = authManager.authenticate(token);
             if (authenticate.isAuthenticated()) {
-                return jwtToken.generateToken(userDto.getEmail());
+                String token1 = jwtToken.generateToken(userDto.getEmail(),userDto.getRoles());
+                System.out.println("Generated Token: " + token1);
+                return token1;
             } else {
                 throw new RuntimeException("Authentication Failed");
             }

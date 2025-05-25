@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: apigatewayservice
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: auth-service
+          uri: lb://AuthService
+          predicates:
+            - Path=/auth/**
+        - id: patient-service
+          uri: lb://Patient
+          predicates:
+            - Path=/**
+        - id: doctor-service
+          uri: lb://DoctorService
+          predicates:
+            - Path=/**
+        - id: appointment-service
+          uri: lb://AppointmentService
+          predicates:
+            - Path=/**
+server:
+  port: 9090
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
