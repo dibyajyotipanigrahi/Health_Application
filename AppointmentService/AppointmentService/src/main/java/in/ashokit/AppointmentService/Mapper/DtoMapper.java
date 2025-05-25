@@ -1,8 +1,8 @@
 package in.ashokit.AppointmentService.Mapper;
 
 import in.ashokit.AppointmentService.Dto.AppointmentDto;
+import in.ashokit.AppointmentService.Dto.AppointmentResponseDto;
 import in.ashokit.AppointmentService.Entity.Appointment;
-
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
@@ -24,8 +24,11 @@ public class DtoMapper {
         return mapper.map(dto, Appointment.class);
     }
 
-    public static AppointmentDto appointmentToDto(Appointment appointment) {
-        return mapper.map(appointment, AppointmentDto.class);
+    public static AppointmentResponseDto appointmentToDto(Appointment appointment) {
+        return mapper.map(appointment, AppointmentResponseDto.class);
     }
+
+
+
 
 }

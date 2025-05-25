@@ -12,6 +12,7 @@
         <module name="AuthService" />
         <module name="ConfigServer" />
         <module name="EmailService" />
+        <module name="ApiGetwayService" />
         <module name="DoctorService" />
         <module name="AppointmentService" />
       </profile>
@@ -25,10 +26,19 @@
         <module name="Patient" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ApigetWay" target="21" />
+      <module name="ApiGetWay" target="21" />
+      <module name="ApiGetway" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="AdminServer" options="-parameters" />
+      <module name="ApiGetWay" options="-parameters" />
+      <module name="ApiGetway" options="-parameters" />
+      <module name="ApiGetwayService" options="-parameters" />
+      <module name="ApigetWay" options="-parameters" />
       <module name="AppointmentService" options="-parameters" />
       <module name="AuthService" options="-parameters" />
       <module name="ConfigServer" options="-parameters" />

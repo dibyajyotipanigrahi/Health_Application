@@ -1,10 +1,12 @@
 package in.ashokit.AuthService.ServiceImplementation;
 
 
+import in.ashokit.AuthService.Entity.Roles;
 import in.ashokit.AuthService.Entity.User;
 import in.ashokit.AuthService.ExceptionHandler.AuthServiceException;
 import in.ashokit.AuthService.FeignClient.EmailClient;
 import in.ashokit.AuthService.JwtTokenGenerate.JwtTokenUtils;
+import in.ashokit.AuthService.Repository.RoleRepository;
 import in.ashokit.AuthService.Repository.UserRepository;
 import in.ashokit.AuthService.Service.UserService;
 import in.ashokit.AuthService.Utils.EmailUtils;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImplementation implements UserService {
@@ -29,6 +32,9 @@ public class UserServiceImplementation implements UserService {
 
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private RoleRepository roleRepo;
 
     @Autowired
     private PasswordEncoder pwdEncoder;
@@ -50,31 +56,50 @@ public class UserServiceImplementation implements UserService {
     @Override
     public UserResponseDto saveUser(UserDto userDto) {
         try {
-
-
+            // 1. Check if user already exists
             Optional<User> existingUser = userRepo.findByEmail(userDto.getEmail());
             if (existingUser.isPresent()) {
                 throw new AuthServiceException("Email already registered", "409");
             }
 
+            // 2. Encrypt password
             userDto.setPassword(pwdEncoder.encode(userDto.getPassword()));
 
-            User user = userRepo.save(mapper.userdtoToUser(userDto));
+            // 3. Convert DTO to User entity
+            User user = mapper.userdtoToUser(userDto);
 
-            String otp = emailUtils.generateVerificationCode();
+            // 4. Convert role names to Role entities
+            List<Roles> roleEntities = userDto.getRoles().stream().map(roleName -> {
+                return roleRepo.findByroleName(roleName)
+                        .orElseGet(() -> {
+                            Roles newRole = new Roles();
+                            newRole.setName(roleName);
+                            return roleRepo.save(newRole);
+                        });
+            }).collect(Collectors.toList());
 
+            user.setRoles(roleEntities);
+
+            // 5. Save user
+            user = userRepo.save(user);
+
+            // 6. Send email
+            String otp = emailUtils.generateVerificationCode(); // optional
             EmailRequest emailRequest = new EmailRequest();
             emailRequest.setTo(user.getEmail());
-            emailRequest.setSubject("Register Succcessfully");
-            emailRequest.setBody("Hi Dibyajyoti Hear");
-
+            emailRequest.setSubject("Registered Successfully");
+            emailRequest.setBody("Hi " + user.getName() + ", welcome to HealthCare App!");
             emailClient.sendEmail(emailRequest);
-            return mapper.userConvertToDTOResponse(user);
-        } catch (Exception e) {
-            throw new AuthServiceException("Registration Failed", "500");
-        }
 
+            // 7. Return response DTO
+            return mapper.userConvertToDTOResponse(user);
+
+        } catch (Exception e) {
+            throw new AuthServiceException("Registration Failed: " + e.getMessage(), "500");
+        }
     }
+
+
 
     @Override
     public String loginUser(UserDto userDto) {

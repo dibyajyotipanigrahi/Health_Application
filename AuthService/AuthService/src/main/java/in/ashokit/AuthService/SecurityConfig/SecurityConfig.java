@@ -8,13 +8,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -60,7 +58,7 @@ public class SecurityConfig {
                                 "/login",            // Allow custom login endpoint
                                 "/register",         // Allow registration
                                 "/oauth2/**",// Allow Spring's OAuth2 login redirections
-                                "/getAllUser",
+                                "/auth/getAllUser",
                                 "/updateUser/**",
                                 "/delete/**",
                                 "/swagger-ui.html",
@@ -71,8 +69,8 @@ public class SecurityConfig {
                                 "/webjars/**"
                         ).permitAll()
                         .anyRequest().authenticated()  // Everything else secured
-                )
-                .oauth2Login(withDefaults());  // Enable OAuth2 login
+                );
+                //.oauth2Login(withDefaults());  // Enable OAuth2 login
 
         return http.build();
     }

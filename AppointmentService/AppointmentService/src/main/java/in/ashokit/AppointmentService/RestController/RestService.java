@@ -2,6 +2,7 @@ package in.ashokit.AppointmentService.RestController;
 
 import in.ashokit.AppointmentService.ApiResponse.ApiResponse;
 import in.ashokit.AppointmentService.Dto.AppointmentDto;
+import in.ashokit.AppointmentService.Dto.AppointmentResponseDto;
 import in.ashokit.AppointmentService.Service.AppointementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class RestService {
     @Autowired
     private AppointementService appointementService;
@@ -20,7 +22,7 @@ public class RestService {
     public ResponseEntity<ApiResponse<AppointmentDto>> bookAppoitment(
             @RequestBody
             AppointmentDto appoitmentDto) {
-        AppointmentDto appoitment = appointementService.createAppoitment(appoitmentDto);
+        AppointmentResponseDto appoitment = appointementService.createAppoitment(appoitmentDto);
         if (appoitment != null) {
             apiResponse.setMessage("Success");
             apiResponse.setStatus(200);
@@ -38,7 +40,7 @@ public class RestService {
     public ResponseEntity<ApiResponse<AppointmentDto>> getById(
             @PathVariable
             Integer appointmentId) {
-        AppointmentDto appoitment = appointementService.getAppointmentById(appointmentId);
+        AppointmentResponseDto appoitment = appointementService.getAppointmentById(appointmentId);
         if (appoitment != null) {
             apiResponse.setMessage("Success");
             apiResponse.setStatus(200);
@@ -55,7 +57,7 @@ public class RestService {
     @GetMapping("/getAll")
     public ResponseEntity<ApiResponse<AppointmentDto>> getAllAppoitment(
     ) {
-        List<AppointmentDto> appoitment = appointementService.getAllAPPoitment();
+        List<AppointmentResponseDto> appoitment = appointementService.getAllAPPoitment();
         if (appoitment != null) {
             apiResponse.setMessage("Success");
             apiResponse.setStatus(200);
@@ -73,7 +75,7 @@ public class RestService {
     public ResponseEntity<ApiResponse<AppointmentDto>> pendingAppoitment(
             @RequestBody
             @PathVariable Integer doctorId) {
-        List<AppointmentDto> appoitment = appointementService.getPendingAppointmentsByDoctorId(doctorId);
+        List<AppointmentResponseDto> appoitment = appointementService.getPendingAppointmentsByDoctorId(doctorId);
         if (appoitment != null) {
             apiResponse.setMessage("Success");
             apiResponse.setStatus(200);
@@ -90,7 +92,7 @@ public class RestService {
     @PutMapping("/updateAppoitment/{appointmentId}")
     public ResponseEntity<ApiResponse<AppointmentDto>> updateAppoitment(
             @PathVariable Integer appointmentId, @RequestBody AppointmentDto status) {
-        AppointmentDto appoitment = appointementService.UpdateAppoitment(appointmentId, status);
+        AppointmentResponseDto appoitment = appointementService.UpdateAppoitment(appointmentId, status);
         if (appoitment != null) {
             apiResponse.setMessage("Success");
             apiResponse.setStatus(200);

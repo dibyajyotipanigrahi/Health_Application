@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class DoctorRestController {
 
     @Autowired
@@ -49,10 +50,9 @@ public class DoctorRestController {
         }
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 
-
     }
 
-    @GetMapping("getById/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<ApiResponse<DoctorResponseDto>> getDoctorById(@PathVariable Integer id) {
         DoctorResponseDto doctor = doctorService.findByIdDoctor(id);
 
@@ -82,7 +82,7 @@ public class DoctorRestController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @PutMapping("update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<ApiResponse<DoctorResponseDto>> updateDoctor(@PathVariable Integer id, @RequestBody DoctorDto doctorDTO) {
         DoctorResponseDto doctor = doctorService.updateDoctor(id, doctorDTO);
 
@@ -98,7 +98,7 @@ public class DoctorRestController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<ApiResponse<String>> deleteDoctor(@PathVariable Integer id) {
 
         try {

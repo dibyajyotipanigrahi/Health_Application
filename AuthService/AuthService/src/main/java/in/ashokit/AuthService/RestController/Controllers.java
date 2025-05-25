@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/auth")
+@CrossOrigin(origins = "*")
 public class Controllers {
 
     @Autowired
@@ -70,6 +72,7 @@ public class Controllers {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @GetMapping("/getById/{id}")
     public ResponseEntity<ApiResponse<UserResponseDto>> getById(@PathVariable Integer id){
         UserResponseDto user = userService.getById(id);
         if(user !=null){

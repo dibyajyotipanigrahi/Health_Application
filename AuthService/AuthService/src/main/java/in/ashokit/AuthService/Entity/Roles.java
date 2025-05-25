@@ -10,7 +10,7 @@ public class Roles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
+    private String roleName;
 
 
     @ManyToMany(mappedBy = "roles")
@@ -35,17 +35,17 @@ public class Roles {
     }
 
     public String getName() {
-        return name;
+        return roleName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.roleName = name;
     }
 
     @Override
     public String toString() {
         return "Roles{" +
-                "name='" + name + '\'' +
+                "name='" + roleName + '\'' +
                 '}';
     }
 }

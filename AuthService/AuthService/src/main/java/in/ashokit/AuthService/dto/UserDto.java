@@ -1,7 +1,5 @@
 package in.ashokit.AuthService.dto;
 
-import in.ashokit.AuthService.Entity.Roles;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,7 +10,7 @@ public class UserDto {
     private String password;
     private String contact;
     private LocalDate dob;
-    private List<Roles> roles;
+    private List<String> roles;
 
     public String getName() {
         return name;
@@ -54,11 +52,11 @@ public class UserDto {
         this.dob = dob;
     }
 
-    public List<Roles> getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Roles> roles) {
+    public void setRoles(List<String> roles) {
         this.roles = roles;
     }
 

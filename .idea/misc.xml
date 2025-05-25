@@ -12,6 +12,10 @@
         <option value="$PROJECT_DIR$/AppointmentService/AppointmentService/pom.xml" />
         <option value="$PROJECT_DIR$/DoctorService/DoctorService/pom.xml" />
         <option value="$PROJECT_DIR$/PatientService/Patient/pom.xml" />
+        <option value="$PROJECT_DIR$/ApiGetWay/ApiGetWay/pom.xml" />
+        <option value="$PROJECT_DIR$/ApiGetWay (1)/ApiGetWay/pom.xml" />
+        <option value="$PROJECT_DIR$/ApiGetway (3)/ApiGetway/pom.xml" />
+        <option value="$PROJECT_DIR$/ApiGetwayService/ApiGetwayService/pom.xml" />
       </list>
     </option>
   </component>
