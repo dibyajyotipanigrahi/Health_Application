@@ -1,15 +1,20 @@
-package in.ashokit.Patient.Dto;
+package in.ashokit.patient.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PatientDto {
+public class PatientResponseDto {
+
+    private Integer id;
 
     private String fullName;
 
@@ -22,4 +27,10 @@ public class PatientDto {
     private int age;
 
     private String address;
+
+    private LocalDate createdDate;
+
+    private LocalDate upDatedDate;
+
+
 }

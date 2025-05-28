@@ -1,9 +1,9 @@
-package in.ashokit.Patient.RestController;
+package in.ashokit.patient.restcontroller;
 
-import in.ashokit.Patient.ApiResponse.ApiResponse;
-import in.ashokit.Patient.Dto.PatientDto;
-import in.ashokit.Patient.Dto.PatientResponseDto;
-import in.ashokit.Patient.Service.PatientService;
+import in.ashokit.patient.apiresponse.ApiResponse;
+import in.ashokit.patient.dto.PatientDto;
+import in.ashokit.patient.dto.PatientResponseDto;
+import in.ashokit.patient.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +17,13 @@ public class PatientRestController {
     @Autowired
     private PatientService parientService;
 
-    ApiResponse apiResponse = new ApiResponse<>();
+
 
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<PatientResponseDto>> rigisterPatient(@RequestBody PatientDto patientDto) {
+        ApiResponse<PatientResponseDto> apiResponse = new ApiResponse<>();
+
+
         PatientResponseDto patient = parientService.addPatient(patientDto);
         if (patient != null) {
             apiResponse.setMessage("Register");
@@ -38,6 +41,7 @@ public class PatientRestController {
 
     @GetMapping("/getById/{id}")
     public ResponseEntity<ApiResponse<PatientResponseDto>> getPatientById(@PathVariable Integer id) {
+        ApiResponse<PatientResponseDto> apiResponse = new ApiResponse<>();
         PatientResponseDto patient = parientService.getPatientById(id);
         if (patient != null) {
             apiResponse.setMessage("Update");
@@ -55,6 +59,8 @@ public class PatientRestController {
 
     @GetMapping("/getAll")
     public ResponseEntity<ApiResponse<List<PatientResponseDto>>> getAllPatient() {
+
+        ApiResponse<List<PatientResponseDto>> apiResponse = new ApiResponse<>();
         List<PatientResponseDto> patient = parientService.getAllPatient();
         if (patient != null) {
             apiResponse.setMessage("All get");
@@ -72,6 +78,8 @@ public class PatientRestController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<ApiResponse<PatientResponseDto>> updatePatient(@PathVariable Integer id, @RequestBody PatientDto patientDto) {
+
+        ApiResponse<PatientResponseDto> apiResponse = new ApiResponse<>();
         PatientResponseDto patient = parientService.updatePatient(id,patientDto);
         if (patient != null) {
             apiResponse.setMessage("update");
@@ -88,6 +96,7 @@ public class PatientRestController {
 
 @DeleteMapping("/delete/{id}")
     public ResponseEntity<ApiResponse<String>> deletePatient(@PathVariable Integer id) {
+    ApiResponse<String> apiResponse = new ApiResponse<>();
         try {
             parientService.deletePatient(id);
 
@@ -96,12 +105,12 @@ public class PatientRestController {
 
             return new ResponseEntity<>(apiResponse, HttpStatus.OK);
         } catch (Exception e) {
+            apiResponse.setMessage("not delete");
+            apiResponse.setStatus("500");
 
+            return new ResponseEntity<>(apiResponse, HttpStatus.OK);
         }
-        apiResponse.setMessage("not delete");
-        apiResponse.setStatus("500");
 
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 
     }
 

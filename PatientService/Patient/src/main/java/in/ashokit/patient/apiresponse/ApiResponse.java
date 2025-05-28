@@ -1,4 +1,4 @@
-package in.ashokit.Patient.ApiResponse;
+package in.ashokit.patient.apiresponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package in.ashokit.Patient.Exception;
+package in.ashokit.patient.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

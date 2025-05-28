@@ -1,7 +1,7 @@
-package in.ashokit.Patient.Service;
+package in.ashokit.patient.service;
 
-import in.ashokit.Patient.Dto.PatientDto;
-import in.ashokit.Patient.Dto.PatientResponseDto;
+import in.ashokit.patient.dto.PatientDto;
+import in.ashokit.patient.dto.PatientResponseDto;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package in.ashokit.Patient.Entity;
+package in.ashokit.patient.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
