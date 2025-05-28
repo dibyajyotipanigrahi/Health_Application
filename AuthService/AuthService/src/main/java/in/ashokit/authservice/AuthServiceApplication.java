@@ -1,17 +1,18 @@
-package in.ashokit.ApiGetwayService;
+package in.ashokit.authservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@CrossOrigin(origins = "*")
-public class ApiGetwayServiceApplication {
+@EnableFeignClients
+public class AuthServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApiGetwayServiceApplication.class, args);
+		SpringApplication.run(AuthServiceApplication.class, args);
 	}
+
 
 }
